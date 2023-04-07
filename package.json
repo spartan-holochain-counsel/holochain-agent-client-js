@@ -1,0 +1,43 @@
+{
+  "name": "@whi/holochain-agent-client",
+  "version": "0.1.0",
+  "description": "A Javascript client for communicating with Holochain's App Interface API",
+  "type": "module",
+  "main": "src/index.js",
+  "browser": "dist/holochain-agent-client.min.js",
+  "files": [
+    "README.md",
+    "src/index.js",
+    "src/schemas.js",
+    "src/zome_api.js",
+    "src/utils.js",
+    "dist/**"
+  ],
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Matthew Brisebois <matthew@webheroes.ca>",
+  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/mjbrisebois/holochain-agent-client-js/"
+  },
+  "dependencies": {
+    "@holochain/serialization": "0.1.0-beta-rc.3",
+    "@whi/holo-hash": "^0.4.0",
+    "@whi/holochain-websocket": "^0.1.2",
+    "@whi/weblogger": "^0.1.6",
+    "tweetnacl": "^1.0.3"
+  },
+  "devDependencies": {
+    "@whi/holochain-admin-client": "^0.1.0",
+    "@whi/holochain-backdrop": "^2.0.1",
+    "@whi/http": "^0.2.3",
+    "chai": "^4.3.4",
+    "mocha": "^10.1.0",
+    "puppeteer": "^19.8.5",
+    "webpack": "^5.76.3",
+    "webpack-cli": "^4.7.2",
+    "why-is-node-running": "^2.2.0"
+  }
+}
