@@ -25,7 +25,7 @@ use-npm-websocket:
 
 use-local-admin-client:
 	cd tests; npm uninstall @whi/holochain-admin-client
-	cd tests; npm install --save-dev ../../node-holochain-admin-client/
+	cd tests; npm install --save-dev ../../holochain-admin-client-js/
 use-npm-admin-client:
 	cd tests; npm uninstall @whi/holochain-admin-client
 	cd tests; npm install --save-dev @whi/holochain-admin-client

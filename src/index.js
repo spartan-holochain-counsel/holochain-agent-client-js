@@ -56,6 +56,9 @@ export {
     reformat_app_info,
     reformat_cell_id,
 
+    // Forwarded from nacl
+    nacl,
+
     // Forwarded from @holochain/serialization
     hashZomeCall,
 
@@ -338,6 +341,9 @@ export default {
     AppSchema,
     DnaSchema,
     ZomeApi,
+
+    // Forwarded from nacl
+    nacl,
 
     // Forwarded from @holochain/serialization
     hashZomeCall,

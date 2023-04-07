@@ -31,6 +31,9 @@ A class for defining and calling a Zome's API interface.
     reformat_cell_id,
     logging,
 
+    // Forwarded from nacl
+    nacl,
+
     // Forwarded from @holochain/serialization
     hashZomeCall,
 
