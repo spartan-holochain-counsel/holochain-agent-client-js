@@ -1,7 +1,7 @@
 [![](https://img.shields.io/npm/v/@whi/holochain-agent-client/latest?style=flat-square)](http://npmjs.com/package/@whi/holochain-agent-client)
 
-# Holochain Client
-A Javascript library for communicating with [Holochain](https://holochain.org)'s Websocket API
+# Holochain Agent Client
+A Javascript client for communicating with [Holochain](https://holochain.org)'s App Interface API.
 
 [![](https://img.shields.io/github/issues-raw/mjbrisebois/holochain-agent-client-js?style=flat-square)](https://github.com/mjbrisebois/holochain-agent-client-js/issues)
 [![](https://img.shields.io/github/issues-closed-raw/mjbrisebois/holochain-agent-client-js?style=flat-square)](https://github.com/mjbrisebois/holochain-agent-client-js/issues?q=is%3Aissue+is%3Aclosed)
