@@ -4,7 +4,8 @@
   "description": "A Javascript client for communicating with Holochain's App Interface API",
   "type": "module",
   "main": "src/index.js",
-  "browser": "dist/holochain-agent-client.min.js",
+  "module": "src/index.js",
+  "browser": "dist/holochain-agent-client.js",
   "files": [
     "README.md",
     "src/index.js",
@@ -24,13 +25,13 @@
   },
   "dependencies": {
     "@holochain/serialization": "0.1.0-beta-rc.3",
-    "@whi/holo-hash": "^0.4.0",
-    "@whi/holochain-websocket": "^0.1.2",
+    "@whi/holo-hash": "^0.4.3",
+    "@whi/holochain-websocket": "^0.1.5",
     "@whi/weblogger": "^0.1.6",
     "tweetnacl": "^1.0.3"
   },
   "devDependencies": {
-    "@whi/holochain-admin-client": "^0.1.0",
+    "@whi/holochain-admin-client": "^0.1.3",
     "@whi/holochain-backdrop": "^2.0.1",
     "@whi/http": "^0.2.3",
     "chai": "^4.3.4",
