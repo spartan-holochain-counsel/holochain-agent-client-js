@@ -24,7 +24,7 @@ const zome_api = new ZomeApi( "mere_memory", [
 ```
 
 
-### `<ZomeApi>.call( connection, agent, dna, zome, func, payload, timeout ) -> Promise<*>`
+### `<ZomeApi>.call( connection, agent, dna, zome, func, payload, signing_handler, secret, timeout ) -> Promise<*>`
 Make an "App interface" `zome_call` via the given `connection` class.
 
 - `connection` - (*required*) an instance of [`Connection`](https://npmjs.com/package/@whi/holochain-websocket)
@@ -33,6 +33,9 @@ Make an "App interface" `zome_call` via the given `connection` class.
 - `zome` - (*required*) the zome name
 - `func` - (*required*) the zome function name
 - `payload` - (*optional*) the payload corresponding to the zome name and function
+- `signing_handler` - (*optional*) a function for signing zome call input (see
+  [`setCapabilityAgent()`](API_AgentClient.md#agentclientsetcapabilityagent-agent-handler-secret-))
+- `secret` - (*optional*) a bytes representing a sha512 hash
 - `timeout` - (*optional*) raise `TimeoutError` after # milliseconds
   - defaults to the timeout set in the `Connection` class
 

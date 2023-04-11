@@ -37,6 +37,7 @@ const TEST_APP_ID			= "test-app";
 
 const TEST_HAPP_CLONES_PATH		= new URL( "../packs/storage_with_clones.happ", import.meta.url ).pathname;
 const TEST_APP_CLONES_ID		= `${TEST_APP_ID}-bundle-clones`;
+const CAP_SECRET			= "super_secret_password";
 
 let conductor;
 let dna_hash;
@@ -183,6 +184,26 @@ function basic_tests () {
 	}
     });
 
+    it("should grant capability via cap secret", async function () {
+	const key_pair			= nacl.sign.keyPair();
+	const app			= new AgentClient( cell_agent_hash, {
+	    "memory": dna_hash,
+	}, app_port, {
+	    "cap_secret": CAP_SECRET,
+	});
+
+	try {
+	    let essence			= await app.call(
+		"memory", "mere_memory", "calculate_hash", Buffer.from("Super important bytes")
+	    );
+
+	    let result			= essence.payload;
+	    log.normal("Calculated hash: %s", result );
+	} finally {
+	    await app.close();
+	}
+    });
+
     it("should create clone cell", async function () {
 	this.skip();
 
@@ -248,6 +269,27 @@ function errors_tests () {
     });
 
     // fail capability check
+    it("should fail because wrong cap secret", async function () {
+	const key_pair			= nacl.sign.keyPair();
+	app.setCapabilityAgent(
+	    new AgentPubKey( key_pair.publicKey ),
+	    async ( zome_call_request ) => {
+		const zome_call_hash	= await hashZomeCall( zome_call_request );
+
+		zome_call_request.signature	= nacl.sign( zome_call_hash, key_pair.secretKey )
+		    .subarray( 0, nacl.sign.signatureLength );
+
+		return zome_call_request;
+	    },
+	    "wrong_cap_secret",
+	);
+
+	await expect_reject( async () => {
+	    await app.call(
+		"memory", "mere_memory", "calculate_hash", Buffer.from("Super important bytes")
+	    );
+	}, ZomeCallUnauthorizedError, "not authorized with reason BadCapGrant" );
+    });
 
     // fail cloning
     it("should fail to clone cell because clone limit", async function () {
@@ -302,6 +344,10 @@ describe("Integration: Agent Client", () => {
 		"nonexistent",
 	    ],
 	});
+
+	await admin.grantTransferableCapability( "test-cap-secret", cell_agent_hash, dna_hash, {
+	    "mere_memory": [ "calculate_hash" ],
+	}, CAP_SECRET );
 
 	let app_iface			= await admin.attachAppInterface();
 	app_port			= app_iface.port;

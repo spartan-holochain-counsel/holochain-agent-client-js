@@ -16,14 +16,13 @@ export class ZomeApi {
 	this._timeout;
     }
 
-    async call ( connection, client_agent, cell_agent, dna, func, payload, signing_handler, timeout ) {
+    async call ( connection, client_agent, cell_agent, dna, func, payload, signing_handler, secret, timeout ) {
 	if ( this._methods.includes( func ) ) {
 	    // TODO: implement transformers
 	}
 	else if ( this._methods !== null && this._methods.length !== 0 ) {
 	    throw new Error(`Unknown Zome function: ${func}; expected one of ${ this._methods }`);
 	}
-
 
 	const zomeCall			= {
 	    "provenance":	client_agent,
@@ -33,6 +32,7 @@ export class ZomeApi {
 	    "payload":		MsgPack.encode( payload ),
 	    "nonce":		randomBytes( 32 ),
 	    "expires_at":	(Date.now() + (5 * 60 * 1000)) * 1000,
+	    "cap_secret":	secret,
 	};
 	const signedZomeCall		= await signing_handler( zomeCall );
 

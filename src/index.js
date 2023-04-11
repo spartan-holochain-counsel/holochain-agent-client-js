@@ -43,6 +43,7 @@ import HolochainWebsocket		from '@whi/holochain-websocket';
 
 import { hashZomeCall }			from '@holochain/serialization';
 import { log,
+	 hash_secret,
 	 reformat_app_info,
 	 reformat_cell_id,
 	 set_tostringtag }		from './utils.js';
@@ -104,6 +105,7 @@ export {
 
 const DEFAULT_AGENT_CLIENT_OPTIONS	= {
     "capability_agent": null,
+    "cap_secret": null,
     "signing_handler": zome_call_request => zome_call_request,
 };
 
@@ -151,6 +153,16 @@ export class AgentClient {
     constructor ( agent, app_schema, connection, options = {} ) {
 	const opts			= Object.assign({}, DEFAULT_AGENT_CLIENT_OPTIONS, options );
 
+	this._cap_secret		= null;
+	this._app_schema		= app_schema instanceof AppSchema
+	    ? app_schema
+	    : new AppSchema( app_schema );
+	this._conn_load			= new Promise(async (f,r) => {
+	    this._conn			= new Connection( connection );
+	    f();
+	});
+	this._options			= opts;
+
 	if ( opts.capability_agent === null ) {
 	    const key_pair			= nacl.sign.keyPair();
 
@@ -163,23 +175,14 @@ export class AgentClient {
 			.subarray( 0, nacl.sign.signatureLength );
 
 		    return zome_call_request;
-		}
+		},
+		opts.cap_secret,
 	    );
 	}
-	else if ( typeof options.signing_handler !== "function" )
+	else if ( typeof opts.signing_handler !== "function" )
 	    log.debug && log("WARN: agent (%s) was supplied for AgentClient without a signing handler", opts.capability_agent );
 
 	this.cellAgent( agent );
-
-	this._app_schema		= app_schema instanceof AppSchema
-	    ? app_schema
-	    : new AppSchema( app_schema );
-
-	this._conn_load			= new Promise(async (f,r) => {
-	    this._conn			= new Connection( connection );
-	    f();
-	});
-	this._options			= opts;
 
 	this.pre_processors		= [];
 	this.post_processors		= [];
@@ -220,9 +223,14 @@ export class AgentClient {
 	this.signing_handler		= signing_handler;
     }
 
-    setCapabilityAgent ( agent_hash, signing_handler ) {
+    setCapabilityAgent ( agent_hash, signing_handler, secret ) {
 	this.capabilityAgent( agent_hash );
 	this.signing_handler		= signing_handler;
+
+	if ( typeof secret === "string" )
+	    secret			= hash_secret( secret );
+
+	this._cap_secret		= secret;
     }
 
     addProcessor ( event, callback ) {
@@ -284,6 +292,7 @@ export class AgentClient {
 	    func,
 	    payload,
 	    this.signing_handler,
+	    this._cap_secret,
 	    timeout || this._options.timeout,
 	);
 

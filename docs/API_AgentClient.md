@@ -73,8 +73,9 @@ A class for communicating with Conductor's App interface with a specific Agent.
 - `options` - optional parameters
 - `options.timeout` - timeout in milliseconds used as the default for requests via this client
 - `options.capability_agent` - a 39 byte `Uint8Array` that will be set as the signing agent
+- `options.cap_secret` - a string
 - `options.signing_handler` - a function for signing zome call input (see
-  [`setCapabilityAgent()`](#agentclientsetcapabilityagent-agent-handler-))
+  [`setCapabilityAgent()`](#agentclientsetcapabilityagent-agent-handler-secret-))
 
 Example
 ```javascript
@@ -137,12 +138,13 @@ client.setSigningHandler( async zome_call_request => {
 });
 ```
 
-### `<AgentClient>.setCapabilityAgent( agent, handler )`
+### `<AgentClient>.setCapabilityAgent( agent, handler, secret )`
 Register a handler for signing zome calls.
 
 - `agent` - (*required*) a 39 byte `Uint8Array` that is an `AgentPubKey`
 - `handler` - (*required*) a function that receives the zome call input and returns the modified
   zome call input.
+- `secret` - (*optional*) a string used as the `cap_secret` value for all zome calls
 
 ```javascript
 import nacl from 'tweetnacl';

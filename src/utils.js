@@ -1,4 +1,5 @@
 
+import sha512				from 'js-sha512';
 import { MsgPack }			from '@whi/holochain-websocket';
 import { DnaHash,
 	 AgentPubKey }			from '@whi/holo-hash';
@@ -70,6 +71,9 @@ export async function reformat_app_info ( app_info ) {
     return app_info;
 }
 
+export function hash_secret ( secret ) {
+    return new Uint8Array( sha512.digest( secret ) );
+}
 
 export function log ( msg, ...args ) {
     let datetime			= (new Date()).toISOString();
