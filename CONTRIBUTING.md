@@ -34,6 +34,20 @@ Bundling with Webpack is supported for web
 npx webpack
 ```
 
+### Minified Size Breakdown
+Sizes are approximate
+
+- base size - 8kb
+- `@gozala/ed25519` - 10kb
+- `@whi/holo-hash` - 10kb
+- `@whi/holochain-websocket` - 9kb
+- `@whi/holochain-serialization` - 6kb
+- `@msgpack/msgpack`
+  - `encode` - 10kb
+  - `decode` - 14kb
+
+Expected minified size 67kb
+
 ### Testing
 
 To run all tests with logging

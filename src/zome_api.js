@@ -1,13 +1,12 @@
 
-import nacl				from 'tweetnacl';
-
-const { randomBytes }			= nacl;
-
-import { MsgPack }			from '@whi/holochain-websocket';
-
+import { encode, decode }		from '@msgpack/msgpack';
 import { log,
 	 set_tostringtag }		from './utils.js';
 
+
+function nonce () {
+    return crypto.getRandomValues( new Uint8Array(32) );
+}
 
 export class ZomeApi {
     constructor ( name, methods = [] ) {
@@ -29,8 +28,8 @@ export class ZomeApi {
 	    "cell_id":		[ dna, cell_agent ],
 	    "zome_name":	this._name,
 	    "fn_name":		func,
-	    "payload":		MsgPack.encode( payload ),
-	    "nonce":		randomBytes( 32 ),
+	    "payload":		encode( payload ),
+	    "nonce":		nonce(),
 	    "expires_at":	(Date.now() + (5 * 60 * 1000)) * 1000,
 	    "cap_secret":	secret,
 	};
@@ -41,7 +40,7 @@ export class ZomeApi {
 
 	const resp			= await connection.request("call_zome", signedZomeCall, timeout || this._timeout );
 
-	return MsgPack.decode( resp );
+	return decode( resp );
     }
 }
 set_tostringtag( ZomeApi, "ZomeApi" );

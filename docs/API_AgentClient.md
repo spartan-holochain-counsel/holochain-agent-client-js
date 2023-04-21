@@ -8,7 +8,7 @@ Create a client using the data fetched via an app info request.
 
 - `app_id` - (*required*) the installed App ID
 - `connection` - (*required*) either
-  - an instance of `Connection`
+  - an instance of [`Connection`](https://github.com/mjbrisebois/holochain-websocket-js/blob/master/docs/API_Connection.md)
   - or, it is used as the input for `new Connection( connection )`
 - `timeout` - (*optional*) timeout used for fetching app info
 

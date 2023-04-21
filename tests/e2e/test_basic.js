@@ -65,7 +65,7 @@ function basic_tests () {
 		    ]),
 		);
 
-		return String( new HoloHash( essence.payload ) );
+		return String( new HoloHashes.HoloHash( essence.payload ) );
 	    } finally {
 		await app.close();
 	    }

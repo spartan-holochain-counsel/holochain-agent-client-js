@@ -23,56 +23,25 @@ A class for defining and calling a Zome's API interface.
 ## Module exports
 ```javascript
 {
+    // Classes
     AgentClient,
     AppSchema,
     DnaSchema,
     ZomeApi,
+
+    // Functions
+    sha512,
+    hash_secret,
     reformat_app_info,
     reformat_cell_id,
-    logging,
-
-    // Forwarded from nacl
-    nacl,
 
     // Forwarded from @holochain/serialization
     hashZomeCall,
 
-    // Forwarded from @whi/holochain-websocket
-    Connection,
-
-    PromiseTimeout,
-    TimeoutError,
-
-    HolochainClientError,
-    ConductorError,
-    DeserializationError,
-    DnaReadError,
-    RibosomeError,
-    RibosomeDeserializeError,
-    ActivateAppError,
-    ZomeCallUnauthorizedError,
-
-    MsgPack,
-
     // Forwarded from @whi/holo-hash
-    HoloHash,
-    HoloHashTypes,
-    AnyDhtHash,
+    HoloHashes,
 
-    AgentPubKey,
-    EntryHash,
-    NetIdHash,
-    DhtOpHash,
-    ActionHash,
-    DnaWasmHash,
-    DnaHash,
-
-    Warning,
-    HoloHashError,
-    NoLeadingUError,
-    BadBase64Error,
-    BadSizeError,
-    BadPrefixError,
-    BadChecksumError,
+    // Forwarded from @whi/holochain-websocket
+    HolochainWebsocket,
 }
 ```

@@ -16,6 +16,13 @@ use-npm-holo-hash:
 	cd tests; npm uninstall @whi/holo-hash
 	cd tests; npm install --save @whi/holo-hash
 
+use-local-serialization:
+	cd tests; npm uninstall @whi/holochain-serialization
+	cd tests; npm install --save ../../holochain-serialization-js/
+use-npm-serialization:
+	cd tests; npm uninstall @whi/holochain-serialization
+	cd tests; npm install --save @whi/holochain-serialization
+
 use-local-websocket:
 	cd tests; npm uninstall @whi/holochain-websocket
 	cd tests; npm install --save ../../holochain-websocket-js/

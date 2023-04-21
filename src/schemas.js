@@ -1,6 +1,5 @@
 
-import { DnaHash,
-	 HoloHashTypes }		from '@whi/holo-hash';
+import { DnaHash }			from '@whi/holo-hash';
 import { log,
 	 set_tostringtag }		from './utils.js';
 import { ZomeApi }			from './zome_api.js';

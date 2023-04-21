@@ -1,54 +1,24 @@
 
-import nacl				from 'tweetnacl';
+import * as ed				from '@gozala/ed25519';
 import {
-    HoloHash,
-    HoloHashTypes,
-    AnyDhtHash,
-
     AgentPubKey,
-    EntryHash,
-    NetIdHash,
-    DhtOpHash,
-    ActionHash,
-    DnaWasmHash,
-    DnaHash,
-
-    Warning,
-    HoloHashError,
-    NoLeadingUError,
-    BadBase64Error,
-    BadSizeError,
-    BadPrefixError,
-    BadChecksumError,
 }					from '@whi/holo-hash';
-import HoloHashes			from '@whi/holo-hash';
 import {
     Connection,
-
-    PromiseTimeout,
-    TimeoutError,
-
-    HolochainClientError,
-    ConductorError,
-    DeserializationError,
-    DnaReadError,
-    RibosomeError,
-    RibosomeDeserializeError,
-    ActivateAppError,
-    ZomeCallUnauthorizedError,
-
-    MsgPack,
 }					from '@whi/holochain-websocket';
-import HolochainWebsocket		from '@whi/holochain-websocket';
 
-import { hashZomeCall }			from '@holochain/serialization';
+import { hashZomeCall }			from '@whi/holochain-serialization';
 import { log,
+	 sha512,
 	 hash_secret,
 	 reformat_app_info,
 	 reformat_cell_id,
 	 set_tostringtag }		from './utils.js';
 import { AppSchema, DnaSchema }		from './schemas.js';
 import { ZomeApi }			from './zome_api.js';
+
+import HoloHashes			from '@whi/holo-hash';
+import HolochainWebsocket		from '@whi/holochain-websocket';
 
 export {
     AppSchema,
@@ -57,49 +27,14 @@ export {
     reformat_app_info,
     reformat_cell_id,
 
-    // Forwarded from nacl
-    nacl,
-
-    // Forwarded from @holochain/serialization
+    // Forwarded from @whi/holochain-serialization
     hashZomeCall,
 
-    // Forwarded from @whi/holochain-websocket
-    Connection,
-
-    PromiseTimeout,
-    TimeoutError,
-
-    HolochainClientError,
-    ConductorError,
-    DeserializationError,
-    DnaReadError,
-    RibosomeError,
-    RibosomeDeserializeError,
-    ActivateAppError,
-    ZomeCallUnauthorizedError,
-
-    MsgPack,
-
     // Forwarded from @whi/holo-hash
-    HoloHash,
-    HoloHashTypes,
-    AnyDhtHash,
+    HoloHashes,
 
-    AgentPubKey,
-    EntryHash,
-    NetIdHash,
-    DhtOpHash,
-    ActionHash,
-    DnaWasmHash,
-    DnaHash,
-
-    Warning,
-    HoloHashError,
-    NoLeadingUError,
-    BadBase64Error,
-    BadSizeError,
-    BadPrefixError,
-    BadChecksumError,
+    // Forwarded from @whi/holochain-websocket
+    HolochainWebsocket,
 };
 
 
@@ -163,24 +98,14 @@ export class AgentClient {
 	});
 	this._options			= opts;
 
-	if ( opts.capability_agent === null ) {
-	    const key_pair			= nacl.sign.keyPair();
-
-	    this.setCapabilityAgent(
-		new AgentPubKey( key_pair.publicKey ),
-		async ( zome_call_request ) => {
-		    const zome_call_hash	= await hashZomeCall( zome_call_request );
-
-		    zome_call_request.signature	= nacl.sign( zome_call_hash, key_pair.secretKey )
-			.subarray( 0, nacl.sign.signatureLength );
-
-		    return zome_call_request;
-		},
-		opts.cap_secret,
-	    );
+	if ( this._options.capability_agent === null ) {
+	    this._setup			= this.setupCapabilityAgent()
+		.catch( console.error );
 	}
-	else if ( typeof opts.signing_handler !== "function" )
-	    log.debug && log("WARN: agent (%s) was supplied for AgentClient without a signing handler", opts.capability_agent );
+	else if ( typeof this._options.signing_handler !== "function" )
+	    log.debug && log("WARN: agent (%s) was supplied for AgentClient without a signing handler", this._options.capability_agent );
+	else
+	    this._setup			= Promise.resolve();
 
 	this.cellAgent( agent );
 
@@ -188,8 +113,30 @@ export class AgentClient {
 	this.post_processors		= [];
     }
 
+    async setupCapabilityAgent () {
+	const secretKey		= ed.utils.randomPrivateKey();
+	const publicKey		= await ed.getPublicKey( secretKey );
+	const key_pair		= {
+	    secretKey,
+	    publicKey,
+	};
+
+	await this.setCapabilityAgent(
+	    new AgentPubKey( key_pair.publicKey ),
+	    async ( zome_call_request ) => {
+		const zome_call_hash		= await hashZomeCall( zome_call_request );
+
+		zome_call_request.signature	= await ed.sign( zome_call_hash, key_pair.secretKey );
+
+		return zome_call_request;
+	    },
+	    this._options.cap_secret,
+	);
+    }
+
     async connection () {
 	await this._conn_load;
+	await this._setup;
 	return this._conn;
     }
 
@@ -223,12 +170,12 @@ export class AgentClient {
 	this.signing_handler		= signing_handler;
     }
 
-    setCapabilityAgent ( agent_hash, signing_handler, secret ) {
+    async setCapabilityAgent ( agent_hash, signing_handler, secret ) {
 	this.capabilityAgent( agent_hash );
 	this.signing_handler		= signing_handler;
 
 	if ( typeof secret === "string" )
-	    secret			= hash_secret( secret );
+	    secret			= await hash_secret( secret );
 
 	this._cap_secret		= secret;
     }
@@ -351,19 +298,17 @@ export default {
     DnaSchema,
     ZomeApi,
 
-    // Forwarded from nacl
-    nacl,
+    sha512,
+    hash_secret,
+    reformat_app_info,
+    reformat_cell_id,
 
-    // Forwarded from @holochain/serialization
+    // Forwarded from @whi/holochain-serialization
     hashZomeCall,
 
-    // Sub-package from @whi/holochain-websocket
-    HolochainWebsocket,
-    MsgPack,
-
-    PromiseTimeout,
-    TimeoutError,
-
-    // Sub-package from @whi/holo-hash
+    // Forwarded from @whi/holo-hash
     HoloHashes,
+
+    // Forwarded from @whi/holochain-websocket
+    HolochainWebsocket,
 };

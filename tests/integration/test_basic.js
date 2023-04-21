@@ -9,27 +9,29 @@ import nacl				from 'tweetnacl';
 
 import { Holochain }			from '@whi/holochain-backdrop';
 import { AdminClient }			from '@whi/holochain-admin-client';
-
-import { expect_reject }		from './utils.js';
-
-import HolochainAgentClient		from '../../src/index.js';
+import { hashZomeCall }			from '@whi/holochain-serialization';
 import {
-    AgentClient,
-    hashZomeCall,
-
     Connection,
-    HoloHash,
-    AgentPubKey,
-
     ConductorError,
     RibosomeError,
     RibosomeDeserializeError,
     ZomeCallUnauthorizedError,
-}					from '../../src/index.js';
+}					from '@whi/holochain-websocket';
+import {
+    HoloHash,
+    AgentPubKey,
+}					from '@whi/holo-hash';
 
 
-// if ( process.env.LOG_LEVEL )
-//     hc_client.logging();
+import { expect_reject }		from './utils.js';
+import {
+    AgentClient,
+    logging,
+}					from '../../src/node.js';
+
+
+if ( process.env.LOG_LEVEL === "trace" )
+    logging();
 
 
 const TEST_HAPP_PATH			= new URL( "../packs/storage.happ", import.meta.url ).pathname;

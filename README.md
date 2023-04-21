@@ -29,8 +29,9 @@ npm i @whi/holochain-agent-client
 
 Each example assumes this code is present
 ```javascript
-import { AgentClient, AgentPubKey, DnaHash } from '@whi/holochain-agent-client';
+import { AgentClient, HoloHashes } from '@whi/holochain-agent-client';
 
+const { AgentPubKey, DnaHash } = HoloHashes;
 const agent_hash = new AgentPubKey("uhCAkXZ1bRsAdulmQ5Tjw5rNJPXXudEVxMvhqEMPZtCyyoeyY68rH");
 const dna_hash = new DnaHash("uhC0kzbVYMh7gso8s-O26hL4PfDTajGqHFkljyL8mdtokzoL-gRdd");
 const app_interface_port = 45678;

@@ -1,9 +1,15 @@
 
-import sha512				from 'js-sha512';
-import { MsgPack }			from '@whi/holochain-websocket';
+import { decode }			from '@msgpack/msgpack';
 import { DnaHash,
 	 AgentPubKey }			from '@whi/holo-hash';
 
+
+export async function sha512 ( bytes ) {
+    if ( typeof crypto === "undefined" || !crypto.subtle )
+	throw new Error(`SubtleCrypto (window.crypto.subtle) is required by @whi/holochain-admin-client for hashing cap secrets.`);
+
+    return await crypto.subtle.digest("SHA-512", bytes );
+}
 
 export function set_tostringtag ( cls, name ) {
     Object.defineProperty( cls, "name", {
@@ -51,7 +57,7 @@ export async function reformat_app_info ( app_info ) {
 	delete role.clone_id;
 
 	// `dna_modifiers` is always there whether it's provisioned or stem
-	role.dna_modifiers.properties	= MsgPack.decode( role.dna_modifiers.properties );
+	role.dna_modifiers.properties	= decode( role.dna_modifiers.properties );
 
 	for ( let cell of cells ) {
 	    if ( cell.cloned ) {
@@ -71,8 +77,8 @@ export async function reformat_app_info ( app_info ) {
     return app_info;
 }
 
-export function hash_secret ( secret ) {
-    return new Uint8Array( sha512.digest( secret ) );
+export async function hash_secret ( secret ) {
+    return new Uint8Array( await sha512( secret ) );
 }
 
 export function log ( msg, ...args ) {
