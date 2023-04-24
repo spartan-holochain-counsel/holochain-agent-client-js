@@ -37,8 +37,8 @@ npx webpack
 ### Minified Size Breakdown
 Sizes are approximate
 
-- base size - 8kb
-- `@gozala/ed25519` - 10kb
+- base size - 5kb
+- `@noble/ed25519` - 5kb
 - `@whi/holo-hash` - 10kb
 - `@whi/holochain-websocket` - 9kb
 - `@whi/holochain-serialization` - 6kb
@@ -46,7 +46,7 @@ Sizes are approximate
   - `encode` - 10kb
   - `decode` - 14kb
 
-Expected minified size 67kb
+Expected minified size 59kb
 
 ### Testing
 

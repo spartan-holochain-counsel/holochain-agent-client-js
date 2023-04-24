@@ -7,6 +7,8 @@ global.crypto				= {
     },
     "subtle": {
 	digest ( _, bytes ) {
+	    if ( bytes instanceof ArrayBuffer ) // Conversion needed for @noble/ed25519
+		bytes			= new Uint8Array( bytes );
 	    const hash			= crypto.createHash('sha512')
 	    hash.update( bytes );
 	    const digest		= hash.digest();

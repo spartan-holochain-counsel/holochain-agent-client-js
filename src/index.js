@@ -1,5 +1,5 @@
 
-import * as ed				from '@gozala/ed25519';
+import * as ed				from '@noble/ed25519';
 import {
     AgentPubKey,
 }					from '@whi/holo-hash';
@@ -115,7 +115,7 @@ export class AgentClient {
 
     async setupCapabilityAgent () {
 	const secretKey		= ed.utils.randomPrivateKey();
-	const publicKey		= await ed.getPublicKey( secretKey );
+	const publicKey		= await ed.getPublicKeyAsync( secretKey );
 	const key_pair		= {
 	    secretKey,
 	    publicKey,
@@ -126,7 +126,7 @@ export class AgentClient {
 	    async ( zome_call_request ) => {
 		const zome_call_hash		= await hashZomeCall( zome_call_request );
 
-		zome_call_request.signature	= await ed.sign( zome_call_hash, key_pair.secretKey );
+		zome_call_request.signature	= await ed.signAsync( zome_call_hash, key_pair.secretKey );
 
 		return zome_call_request;
 	    },

@@ -24,7 +24,7 @@
     "url": "https://github.com/mjbrisebois/holochain-agent-client-js/"
   },
   "dependencies": {
-    "@gozala/ed25519": "^1.6.0",
+    "@noble/ed25519": "^2.0.0",
     "@whi/holo-hash": "^0.4.3",
     "@whi/holochain-serialization": "^0.1.3",
     "@whi/holochain-websocket": "^0.1.6"
