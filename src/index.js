@@ -24,6 +24,9 @@ export {
     AppSchema,
     DnaSchema,
     ZomeApi,
+
+    sha512,
+    hash_secret,
     reformat_app_info,
     reformat_cell_id,
 
