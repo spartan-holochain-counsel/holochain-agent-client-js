@@ -165,7 +165,7 @@ function basic_tests () {
 	app.setCapabilityAgent(
 	    new AgentPubKey( key_pair.publicKey ),
 	    async ( zome_call_request ) => {
-		const zome_call_hash	= await hashZomeCall( zome_call_request );
+		const zome_call_hash		= await hashZomeCall( zome_call_request );
 
 		zome_call_request.signature	= nacl.sign( zome_call_hash, key_pair.secretKey )
 		    .subarray( 0, nacl.sign.signatureLength );
@@ -190,9 +190,20 @@ function basic_tests () {
 	const key_pair			= nacl.sign.keyPair();
 	const app			= new AgentClient( cell_agent_hash, {
 	    "memory": dna_hash,
-	}, app_port, {
-	    "cap_secret": CAP_SECRET,
-	});
+	}, app_port );
+
+	app.setCapabilityAgent(
+	    new AgentPubKey( key_pair.publicKey ),
+	    async ( zome_call_request ) => {
+		const zome_call_hash		= await hashZomeCall( zome_call_request );
+
+		zome_call_request.signature	= nacl.sign( zome_call_hash, key_pair.secretKey )
+		    .subarray( 0, nacl.sign.signatureLength );
+
+		return zome_call_request;
+	    },
+	    CAP_SECRET,
+	);
 
 	try {
 	    let essence			= await app.call(

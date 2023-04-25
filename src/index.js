@@ -124,17 +124,21 @@ export class AgentClient {
 	    publicKey,
 	};
 
-	await this.setCapabilityAgent(
-	    new AgentPubKey( key_pair.publicKey ),
-	    async ( zome_call_request ) => {
-		const zome_call_hash		= await hashZomeCall( zome_call_request );
+	const agent_hash	= new AgentPubKey( key_pair.publicKey );
+	let cap_secret		= this._options.cap_secret;
 
-		zome_call_request.signature	= await ed.signAsync( zome_call_hash, key_pair.secretKey );
+	this.capabilityAgent( agent_hash );
+	this.signing_handler	= async ( zome_call_request ) => {
+	    const zc_hash		= await hashZomeCall( zome_call_request );
+	    zome_call_request.signature	= await ed.signAsync( zc_hash, key_pair.secretKey );
 
-		return zome_call_request;
-	    },
-	    this._options.cap_secret,
-	);
+	    return zome_call_request;
+	};
+
+	if ( typeof cap_secret === "string" )
+	    cap_secret			= await hash_secret( cap_secret );
+
+	this._cap_secret		= cap_secret;
     }
 
     async connection () {
@@ -174,6 +178,8 @@ export class AgentClient {
     }
 
     async setCapabilityAgent ( agent_hash, signing_handler, secret ) {
+	await this._setup;
+
 	this.capabilityAgent( agent_hash );
 	this.signing_handler		= signing_handler;
 
