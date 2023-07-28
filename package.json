@@ -1,6 +1,6 @@
 {
   "name": "@spartan-hc/holochain-agent-client",
-  "version": "0.2.4",
+  "version": "0.2.5",
   "description": "A Javascript client for communicating with Holochain's App Interface API",
   "type": "module",
   "main": "src/node.js",
