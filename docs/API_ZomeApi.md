@@ -27,7 +27,7 @@ const zome_api = new ZomeApi( "mere_memory", [
 ### `<ZomeApi>.call( connection, agent, dna, zome, func, payload, signing_handler, secret, timeout ) -> Promise<*>`
 Make an "App interface" `zome_call` via the given `connection` class.
 
-- `connection` - (*required*) an instance of [`Connection`](https://npmjs.com/package/@whi/holochain-websocket)
+- `connection` - (*required*) an instance of [`Connection`](https://npmjs.com/package/@spartan-hc/holochain-websocket)
 - `agent` - (*required*) a 39 byte `Uint8Array` that is an `AgentPubKey`
 - `dna` - (*required*) a 39 byte `Uint8Array` that is a `DnaHash`
 - `zome` - (*required*) the zome name

@@ -10,39 +10,39 @@ node_modules:		package-lock.json
 build:			node_modules
 
 use-local-holo-hash:
-	cd tests; npm uninstall @whi/holo-hash
+	cd tests; npm uninstall @spartan-hc/holo-hash
 	cd tests; npm install --save ../../holo-hash-js/
 use-npm-holo-hash:
-	cd tests; npm uninstall @whi/holo-hash
-	cd tests; npm install --save @whi/holo-hash
+	cd tests; npm uninstall @spartan-hc/holo-hash
+	cd tests; npm install --save @spartan-hc/holo-hash
 
 use-local-serialization:
-	cd tests; npm uninstall @whi/holochain-serialization
+	cd tests; npm uninstall @spartan-hc/holochain-serialization
 	cd tests; npm install --save ../../holochain-serialization-js/
 use-npm-serialization:
-	cd tests; npm uninstall @whi/holochain-serialization
-	cd tests; npm install --save @whi/holochain-serialization
+	cd tests; npm uninstall @spartan-hc/holochain-serialization
+	cd tests; npm install --save @spartan-hc/holochain-serialization
 
 use-local-websocket:
-	cd tests; npm uninstall @whi/holochain-websocket
+	cd tests; npm uninstall @spartan-hc/holochain-websocket
 	cd tests; npm install --save ../../holochain-websocket-js/
 use-npm-websocket:
-	cd tests; npm uninstall @whi/holochain-websocket
-	cd tests; npm install --save @whi/holochain-websocket
+	cd tests; npm uninstall @spartan-hc/holochain-websocket
+	cd tests; npm install --save @spartan-hc/holochain-websocket
 
 use-local-admin-client:
-	cd tests; npm uninstall @whi/holochain-admin-client
+	cd tests; npm uninstall @spartan-hc/holochain-admin-client
 	cd tests; npm install --save-dev ../../holochain-admin-client-js/
 use-npm-admin-client:
-	cd tests; npm uninstall @whi/holochain-admin-client
-	cd tests; npm install --save-dev @whi/holochain-admin-client
+	cd tests; npm uninstall @spartan-hc/holochain-admin-client
+	cd tests; npm install --save-dev @spartan-hc/holochain-admin-client
 
 use-local-backdrop:
-	cd tests; npm uninstall @whi/holochain-backdrop
+	cd tests; npm uninstall @spartan-hc/holochain-backdrop
 	cd tests; npm install --save-dev ../../node-holochain-backdrop/
 use-npm-backdrop:
-	cd tests; npm uninstall @whi/holochain-backdrop
-	cd tests; npm install --save-dev @whi/holochain-backdrop
+	cd tests; npm uninstall @spartan-hc/holochain-backdrop
+	cd tests; npm install --save-dev @spartan-hc/holochain-backdrop
 
 
 MOCHA_OPTS		= -t 15000

@@ -1,12 +1,12 @@
 
 import { decode }			from '@msgpack/msgpack';
 import { DnaHash,
-	 AgentPubKey }			from '@whi/holo-hash';
+	 AgentPubKey }			from '@spartan-hc/holo-hash';
 
 
 export async function sha512 ( bytes ) {
     if ( typeof crypto === "undefined" || !crypto.subtle )
-	throw new Error(`SubtleCrypto (window.crypto.subtle) is required by @whi/holochain-admin-client for hashing cap secrets.`);
+	throw new Error(`SubtleCrypto (window.crypto.subtle) is required by @spartan-hc/holochain-admin-client for hashing cap secrets.`);
 
     return await crypto.subtle.digest("SHA-512", bytes );
 }

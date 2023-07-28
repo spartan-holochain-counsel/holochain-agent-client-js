@@ -7,20 +7,20 @@ import path				from 'path';
 import { expect }			from 'chai';
 import nacl				from 'tweetnacl';
 
-import { Holochain }			from '@whi/holochain-backdrop';
-import { AdminClient }			from '@whi/holochain-admin-client';
-import { hashZomeCall }			from '@whi/holochain-serialization';
+import { Holochain }			from '@spartan-hc/holochain-backdrop';
+import { AdminClient }			from '@spartan-hc/holochain-admin-client';
+import { hashZomeCall }			from '@spartan-hc/holochain-serialization';
 import {
     Connection,
     ConductorError,
     RibosomeError,
     RibosomeDeserializeError,
     ZomeCallUnauthorizedError,
-}					from '@whi/holochain-websocket';
+}					from '@spartan-hc/holochain-websocket';
 import {
     HoloHash,
     AgentPubKey,
-}					from '@whi/holo-hash';
+}					from '@spartan-hc/holo-hash';
 
 
 import { expect_reject }		from './utils.js';

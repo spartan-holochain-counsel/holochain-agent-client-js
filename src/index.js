@@ -2,12 +2,12 @@
 import * as ed				from '@noble/ed25519';
 import {
     AgentPubKey,
-}					from '@whi/holo-hash';
+}					from '@spartan-hc/holo-hash';
 import {
     Connection,
-}					from '@whi/holochain-websocket';
+}					from '@spartan-hc/holochain-websocket';
 
-import { hashZomeCall }			from '@whi/holochain-serialization';
+import { hashZomeCall }			from '@spartan-hc/holochain-serialization';
 import { log,
 	 sha512,
 	 hash_secret,
@@ -17,8 +17,8 @@ import { log,
 import { AppSchema, DnaSchema }		from './schemas.js';
 import { ZomeApi }			from './zome_api.js';
 
-import HoloHashes			from '@whi/holo-hash';
-import HolochainWebsocket		from '@whi/holochain-websocket';
+import HoloHashes			from '@spartan-hc/holo-hash';
+import HolochainWebsocket		from '@spartan-hc/holochain-websocket';
 
 export {
     AppSchema,
@@ -30,13 +30,13 @@ export {
     reformat_app_info,
     reformat_cell_id,
 
-    // Forwarded from @whi/holochain-serialization
+    // Forwarded from @spartan-hc/holochain-serialization
     hashZomeCall,
 
-    // Forwarded from @whi/holo-hash
+    // Forwarded from @spartan-hc/holo-hash
     HoloHashes,
 
-    // Forwarded from @whi/holochain-websocket
+    // Forwarded from @spartan-hc/holochain-websocket
     HolochainWebsocket,
 };
 
@@ -312,12 +312,12 @@ export default {
     reformat_app_info,
     reformat_cell_id,
 
-    // Forwarded from @whi/holochain-serialization
+    // Forwarded from @spartan-hc/holochain-serialization
     hashZomeCall,
 
-    // Forwarded from @whi/holo-hash
+    // Forwarded from @spartan-hc/holo-hash
     HoloHashes,
 
-    // Forwarded from @whi/holochain-websocket
+    // Forwarded from @spartan-hc/holochain-websocket
     HolochainWebsocket,
 };

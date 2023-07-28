@@ -1,11 +1,11 @@
-[![](https://img.shields.io/npm/v/@whi/holochain-agent-client/latest?style=flat-square)](http://npmjs.com/package/@whi/holochain-agent-client)
+[![](https://img.shields.io/npm/v/@spartan-hc/holochain-agent-client/latest?style=flat-square)](http://npmjs.com/package/@spartan-hc/holochain-agent-client)
 
 # Holochain Agent Client
 A Javascript client for communicating with [Holochain](https://holochain.org)'s App Interface API.
 
-[![](https://img.shields.io/github/issues-raw/mjbrisebois/holochain-agent-client-js?style=flat-square)](https://github.com/mjbrisebois/holochain-agent-client-js/issues)
-[![](https://img.shields.io/github/issues-closed-raw/mjbrisebois/holochain-agent-client-js?style=flat-square)](https://github.com/mjbrisebois/holochain-agent-client-js/issues?q=is%3Aissue+is%3Aclosed)
-[![](https://img.shields.io/github/issues-pr-raw/mjbrisebois/holochain-agent-client-js?style=flat-square)](https://github.com/mjbrisebois/holochain-agent-client-js/pulls)
+[![](https://img.shields.io/github/issues-raw/spartan-holochain-counsel/holochain-agent-client-js?style=flat-square)](https://github.com/spartan-holochain-counsel/holochain-agent-client-js/issues)
+[![](https://img.shields.io/github/issues-closed-raw/spartan-holochain-counsel/holochain-agent-client-js?style=flat-square)](https://github.com/spartan-holochain-counsel/holochain-agent-client-js/issues?q=is%3Aissue+is%3Aclosed)
+[![](https://img.shields.io/github/issues-pr-raw/spartan-holochain-counsel/holochain-agent-client-js?style=flat-square)](https://github.com/spartan-holochain-counsel/holochain-agent-client-js/pulls)
 
 
 ## Overview
@@ -22,14 +22,14 @@ This client is guided by the interfaces defined in the
 ## Install
 
 ```bash
-npm i @whi/holochain-agent-client
+npm i @spartan-hc/holochain-agent-client
 ```
 
 ## Basic Usage
 
 Each example assumes this code is present
 ```javascript
-import { AgentClient, HoloHashes } from '@whi/holochain-agent-client';
+import { AgentClient, HoloHashes } from '@spartan-hc/holochain-agent-client';
 
 const { AgentPubKey, DnaHash } = HoloHashes;
 const agent_hash = new AgentPubKey("uhCAkXZ1bRsAdulmQ5Tjw5rNJPXXudEVxMvhqEMPZtCyyoeyY68rH");

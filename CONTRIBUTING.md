@@ -16,7 +16,7 @@ See [docs/API.md](docs/API.md) for detailed API References
 Turns on debugging logs.
 
 ```javascript
-import { logging } from '@whi/holochain-agent-client';
+import { logging } from '@spartan-hc/holochain-agent-client';
 
 logging(); // show debug logs
 ```
@@ -39,9 +39,9 @@ Sizes are approximate
 
 - base size - 5kb
 - `@noble/ed25519` - 5kb
-- `@whi/holo-hash` - 10kb
-- `@whi/holochain-websocket` - 9kb
-- `@whi/holochain-serialization` - 6kb
+- `@spartan-hc/holo-hash` - 10kb
+- `@spartan-hc/holochain-websocket` - 9kb
+- `@spartan-hc/holochain-serialization` - 6kb
 - `@msgpack/msgpack`
   - `encode` - 10kb
   - `decode` - 14kb

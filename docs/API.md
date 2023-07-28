@@ -38,10 +38,10 @@ A class for defining and calling a Zome's API interface.
     // Forwarded from @holochain/serialization
     hashZomeCall,
 
-    // Forwarded from @whi/holo-hash
+    // Forwarded from @spartan-hc/holo-hash
     HoloHashes,
 
-    // Forwarded from @whi/holochain-websocket
+    // Forwarded from @spartan-hc/holochain-websocket
     HolochainWebsocket,
 }
 ```

@@ -9,9 +9,9 @@ import { expect }			from 'chai';
 import puppeteer			from 'puppeteer';
 import http				from '@whi/http';
 
-import { HoloHash }			from '@whi/holo-hash';
-import { Holochain }			from '@whi/holochain-backdrop';
-import { AdminClient }			from '@whi/holochain-admin-client';
+import { HoloHash }			from '@spartan-hc/holo-hash';
+import { Holochain }			from '@spartan-hc/holochain-backdrop';
+import { AdminClient }			from '@spartan-hc/holochain-admin-client';
 
 
 const TEST_HAPP_PATH			= new URL( "../packs/storage.happ", import.meta.url ).pathname;
