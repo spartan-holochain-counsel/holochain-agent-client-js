@@ -31,7 +31,7 @@
   },
   "devDependencies": {
     "@whi/holochain-admin-client": "^0.1.4",
-    "@whi/holochain-backdrop": "^2.0.1",
+    "@whi/holochain-backdrop": "^2.0.0",
     "@whi/http": "^0.2.3",
     "@whi/weblogger": "^0.1.6",
     "chai": "^4.3.4",
